@@ -1,23 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+/*eslint-disable*/
+
+import "./App.css";
+import { useState } from "react";
+import Data from "./data.js";
+import Product from "./Product";
+import Jumbotron from "./Jumbotron";
+import Navibar from "./Navibar";
+import { Link, Route, Switch } from "react-router-dom";
+import Detail from "./Detail";
+import axios from "axios";
 
 function App() {
+  const [shoes, shoes변경] = useState(Data);
+  let [재고, 재고변경] = useState([10, 11, 12]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navibar />
+
+      <Switch>
+        <Route exact path="/">
+          <Jumbotron />
+          <div className="container">
+            <div className="row">
+              {shoes.map((a, i) => {
+                return <Product shoes={shoes[i]} key={i} i={i} />;
+              })}
+            </div>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                axios
+                  .get("https://codingapple1.github.io/shop/data2.json")
+                  .then((result) => {
+                    console.log(result.data);
+                    shoes변경([...shoes, ...result.data]);
+                  })
+                  .catch(() => {});
+              }}
+            >
+              더보기
+            </button>
+          </div>
+        </Route>
+
+        <Route path="/detail/:id">
+          <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+        </Route>
+
+        <Route path="/:id">
+          <div>새로 만든 route입니다</div>
+        </Route>
+      </Switch>
     </div>
   );
 }
