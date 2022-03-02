@@ -1,8 +1,11 @@
 /*eslint-disable*/
 
 import React from "react";
+import { useContext } from "react";
+import { 재고context } from "./App";
 
 function Product(props) {
+  let 재고 = useContext(재고context);
   return (
     <div>
       <div className="col-md-4">
@@ -16,6 +19,7 @@ function Product(props) {
         <p>
           {props.shoes.content}&{props.shoes.price}
         </p>
+        {재고}
       </div>
     </div>
   );

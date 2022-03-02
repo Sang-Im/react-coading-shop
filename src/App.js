@@ -1,7 +1,7 @@
 /*eslint-disable*/
 
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import Data from "./data.js";
 import Product from "./Product";
 import Jumbotron from "./Jumbotron";
@@ -9,6 +9,8 @@ import Navibar from "./Navibar";
 import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail";
 import axios from "axios";
+
+export let 재고context = React.createContext();
 
 function App() {
   const [shoes, shoes변경] = useState(Data);
@@ -22,11 +24,14 @@ function App() {
         <Route exact path="/">
           <Jumbotron />
           <div className="container">
-            <div className="row">
-              {shoes.map((a, i) => {
-                return <Product shoes={shoes[i]} key={i} i={i} />;
-              })}
-            </div>
+            <재고context.Provider value={재고}>
+              <div className="row">
+                {shoes.map((a, i) => {
+                  return <Product shoes={shoes[i]} key={i} i={i} />;
+                })}
+              </div>
+            </재고context.Provider>
+
             <button
               className="btn btn-primary"
               onClick={() => {

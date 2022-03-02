@@ -1,5 +1,14 @@
 @import "./reset.scss";
 $메인칼라: #2e6846;
+
+.wow-enter {
+  opacity: 0;
+}
+.wow-enter-active {
+  opacity: 1;
+  transition: all 500ms;
+}
+
 .red {
   color: $메인칼라;
 }
