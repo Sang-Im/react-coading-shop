@@ -9,6 +9,7 @@ import Navibar from "./Navibar";
 import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail";
 import axios from "axios";
+import Cart from "./Cart";
 
 export let 재고context = React.createContext();
 
@@ -51,6 +52,10 @@ function App() {
 
         <Route path="/detail/:id">
           <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+        </Route>
+
+        <Route path="/cart">
+          <Cart />
         </Route>
 
         <Route path="/:id">
